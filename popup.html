@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>TwitchLoop</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h2>TwitchLoop</h2>
+    <div class="setting">
+      <label for="interval">Refresh Interval (sec):</label>
+      <input type="number" id="interval" value="12" min="1">
+    </div>
+    <div class="stats" id="stats" style="display:none;">
+      <div class="stat-row">
+        <span class="stat-label">Next refresh in:</span>
+        <span class="stat-value" id="countdown">--</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">Tabs cycled:</span>
+        <span class="stat-value" id="cycleCount">0</span>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="toggleBtn" class="btn-start">Start</button>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

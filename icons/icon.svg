@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="128" y2="128">
+      <stop offset="0%" stop-color="#9146FF" />
+      <stop offset="100%" stop-color="#5B21B6" />
+    </linearGradient>
+    <linearGradient id="arrow" x1="0" y1="0" x2="128" y2="128">
+      <stop offset="0%" stop-color="#00FFCC" />
+      <stop offset="100%" stop-color="#00A3FF" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  
+  <!-- Left/Back Tab -->
+  <rect x="22" y="28" width="56" height="44" rx="6" fill="#FFFFFF" opacity="0.4"/>
+  <rect x="28" y="34" width="30" height="6" rx="3" fill="#FFFFFF" opacity="0.6"/>
+  
+  <!-- Right/Front Tab -->
+  <rect x="50" y="56" width="56" height="44" rx="6" fill="#FFFFFF"/>
+  <rect x="56" y="62" width="30" height="6" rx="3" fill="#9146FF" opacity="0.3"/>
+  
+  <!-- Loop Arrow Path -->
+  <path d="M 28 88 A 46 46 0 0 1 82 20" fill="none" stroke="url(#arrow)" stroke-width="12" stroke-linecap="round"/>
+  <!-- Arrow Head Top -->
+  <polygon points="82,20 66,10 70,36" fill="url(#arrow)"/>
+  
+  <!-- Loop Arrow Bottom Path -->
+  <path d="M 100 40 A 46 46 0 0 1 46 108" fill="none" stroke="url(#arrow)" stroke-width="12" stroke-linecap="round"/>
+  <!-- Arrow Head Bottom -->
+  <polygon points="46,108 62,118 58,92" fill="url(#arrow)"/>
+</svg>
