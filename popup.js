@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const statsDiv = document.getElementById('stats');
   const countdownEl = document.getElementById('countdown');
   const cycleCountEl = document.getElementById('cycleCount');
+  const currentRunCountEl = document.getElementById('currentRunCount');
   let isRunning = false;
   let currentInterval = 12;
   let lastCycleTime = null;
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
           lastCycleTime = state.lastCycleTime;
           currentInterval = state.interval;
           cycleCountEl.textContent = state.cycleCount;
+          currentRunCountEl.textContent = state.currentRunCount || 0;
           if (!state.running) updateUI(state);
         }
       }).catch(() => {});
@@ -54,6 +56,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (state.cycleCount !== undefined) {
       cycleCountEl.textContent = state.cycleCount;
+    }
+    if (state.currentRunCount !== undefined) {
+      currentRunCountEl.textContent = state.currentRunCount;
     }
     if (state.lastCycleTime !== undefined) {
       lastCycleTime = state.lastCycleTime;
@@ -105,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
       browser.runtime.sendMessage({ command: "start", interval: intervalVal })
         .then(response => {
           if (response && response.ok) {
-            updateUI({ running: true, interval: intervalVal, cycleCount: 0, lastCycleTime: Date.now() });
+            updateUI({ running: true, interval: intervalVal, currentRunCount: 0, lastCycleTime: Date.now() });
           }
         })
         .catch(err => {
