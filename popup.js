@@ -90,6 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("Failed to get initial state from background script.", err);
     });
 
+  intervalInput.addEventListener('input', () => {
+    const val = parseInt(intervalInput.value, 10);
+    if (!isNaN(val) && val >= 1) {
+      browser.runtime.sendMessage({ command: "setInterval", interval: val }).catch(() => {});
+    }
+  });
+
   toggleBtn.addEventListener('click', () => {
     if (isRunning) {
       browser.runtime.sendMessage({ command: "stop" })

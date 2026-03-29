@@ -38,7 +38,7 @@ function updateIcon(countdown) {
   }
 
   const imageData = ctx.getImageData(0, 0, 128, 128);
-  browser.browserAction.setIcon({ imageData: imageData });
+  browser.action.setIcon({ imageData: imageData });
 }
 
 // Start periodic icon updates
@@ -64,13 +64,12 @@ function stopIconUpdates() {
 }
 
 // Restore state on startup (handles event page reload / browser restart)
-browser.storage.local.get(["running", "interval", "cycleCount"]).then((data) => {
+// Note: cycleCount is now session-only and resets on browser restart
+browser.storage.local.get(["running", "interval"]).then((data) => {
   if (data.interval) {
     interval = data.interval;
   }
-  if (data.cycleCount) {
-    cycleCount = data.cycleCount;
-  }
+  // cycleCount starts at 0 each browser session
   if (data.running) {
     startCycling(interval);
   } else {
@@ -117,14 +116,24 @@ async function cycleTab() {
 
     await browser.tabs.update(nextTab.id, { active: true });
     await browser.tabs.reload(nextTab.id, { bypassCache: true });
-    cycleCount++;
+    cycleCount++; // Session-only count (resets on browser restart)
     currentRunCount++;
     lastCycleTime = Date.now();
-    browser.storage.local.set({ cycleCount });
   } catch (e) {
     // Tab may have been closed mid-cycle; next tick will re-query
   }
 }
+
+// Keyboard shortcut handler
+browser.commands.onCommand.addListener((command) => {
+  if (command === "toggle-cycling") {
+    if (running) {
+      stopCycling();
+    } else {
+      startCycling(interval);
+    }
+  }
+});
 
 // Message handler for popup communication
 browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
@@ -137,5 +146,12 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     sendResponse({ ok: true });
   } else if (message.command === "getState") {
     sendResponse({ running, interval, cycleCount, currentRunCount, lastCycleTime });
+  } else if (message.command === "setInterval") {
+    const sec = message.interval;
+    if (sec && sec >= 1) {
+      interval = sec;
+      browser.storage.local.set({ interval: sec });
+    }
+    sendResponse({ ok: true });
   }
 });
