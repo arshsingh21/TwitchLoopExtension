@@ -130,7 +130,9 @@ browser.commands.onCommand.addListener((command) => {
     if (running) {
       stopCycling();
     } else {
-      startCycling(interval);
+      browser.storage.local.get(["interval"]).then((data) => {
+        startCycling(data.interval || interval);
+      });
     }
   }
 });
