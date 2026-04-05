@@ -151,6 +151,9 @@ browser.runtime.onMessage.addListener((message, _sender, sendResponse) => {
     if (sec && sec >= 1) {
       interval = sec;
       browser.storage.local.set({ interval: sec });
+      if (running) {
+        startCycling(sec);
+      }
     }
     sendResponse({ ok: true });
   }

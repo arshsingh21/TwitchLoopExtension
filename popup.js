@@ -68,12 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
       toggleBtn.textContent = 'Stop';
       toggleBtn.className = 'btn-stop';
       intervalInput.disabled = true;
+      toggleBtn.disabled = false;
       statsDiv.style.display = '';
       startCountdown();
     } else {
       toggleBtn.textContent = 'Start';
       toggleBtn.className = 'btn-start';
       intervalInput.disabled = false;
+      toggleBtn.disabled = false;
       statsDiv.style.display = 'none';
       stopCountdown();
     }
