@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TwitchLoop",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Automatically cycles through browser tabs, refreshing each one on a configurable interval.",
   "permissions": [
     "tabs",
