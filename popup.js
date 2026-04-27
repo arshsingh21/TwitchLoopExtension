@@ -81,10 +81,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Get initial state
-  browser.runtime.sendMessage({ command: "getState" })
-    .then(response => {
+  // Get initial state. Read interval from storage directly so we get the
+  // last-saved value even if the background script's in-memory copy hasn't
+  // been hydrated from storage yet (race on browser/extension startup).
+  Promise.all([
+    browser.runtime.sendMessage({ command: "getState" }),
+    browser.storage.local.get(["interval"])
+  ])
+    .then(([response, stored]) => {
       if (response) {
+        if (stored && typeof stored.interval === "number") {
+          response.interval = stored.interval;
+        }
         updateUI(response);
       }
     })

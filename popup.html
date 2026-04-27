@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>TwitchLoop</title>
   <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
   <div class="container">
     <h2>TwitchLoop</h2>
     <div class="setting">
       <label for="interval">Refresh Interval (sec):</label>
-      <input type="number" id="interval" placeholder="12" min="1" disabled>
+      <input type="number" id="interval" placeholder="120" min="1" disabled>
     </div>
     <div class="stats" id="stats" style="display:none;">
       <div class="stat-row">
@@ -32,4 +34,5 @@
   </div>
   <script src="popup.js"></script>
 </body>
+
 </html>
